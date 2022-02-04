@@ -16,10 +16,18 @@ import static com.codeborne.selenide.Selenide.*;
 public class FormTest {
     @BeforeAll
     static void before(){
+        String browser = System.getProperty("browser");
+        String login = System.getProperty("login");
+        String password = System.getProperty("password");
+        String version = System.getProperty("version");
+        String url = System.getProperty("url");
+        String size = System.getProperty("size");
+
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        clearBrowserCookies();
-        Configuration.browserSize = "1590x850";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.browserSize = size;
+        Configuration.browser = browser;
+        Configuration.browserVersion = version;
+        Configuration.remote = "https://" + login + ":" + password + "@" + url + "/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
