@@ -19,20 +19,23 @@ public class FormTest {
         String browser = System.getProperty("browser");
         String login = System.getProperty("login");
         String password = System.getProperty("password");
-        String version = System.getProperty("version");
+        //String version = System.getProperty("version");
         String url = System.getProperty("url");
         String size = System.getProperty("size");
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         Configuration.browserSize = size;
         Configuration.browser = browser;
-        Configuration.browserVersion = version;
+        //Configuration.browserVersion = version;
         Configuration.remote = "https://" + login + ":" + password + "@" + url + "/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
+
+        Tools.attachAsText("Browser: ", browser);
+        //Tools.attachAsText("Version: ", version);
     }
 
     @Test
