@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class FormTest {
     @BeforeAll
     static void before(){
-        String browser = System.getProperty("browser");
+        String browser = System.getProperty("browser", "chrome");
         String login = System.getProperty("login");
         String password = System.getProperty("password");
         String version = System.getProperty("version");
