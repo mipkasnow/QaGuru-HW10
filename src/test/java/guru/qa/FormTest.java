@@ -16,12 +16,12 @@ import static com.codeborne.selenide.Selenide.*;
 public class FormTest {
     @BeforeAll
     static void before(){
-        String browser = System.getProperty("browser");
-        String login = System.getProperty("login");
-        String password = System.getProperty("password");
-        String version = System.getProperty("version");
-        String url = System.getProperty("url");
-        String size = System.getProperty("size");
+        String browser = System.getProperty("browser", "chrome");
+        String login = System.getProperty("login", "user1");
+        String password = System.getProperty("password", "1234");
+        String version = System.getProperty("version", "91");
+        String url = System.getProperty("url", "selenoid.autotests.cloud");
+        String size = System.getProperty("size", "1590x850");
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         Configuration.browserSize = size;
