@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -12,13 +13,20 @@ import java.io.File;
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static java.lang.String.format;
 
 public class FormTest {
+
+
     @BeforeAll
-    static void before(){
+    public static void before(){
+        CredentialsConfig config = ConfigFactory.create(CredentialsConfig.class);
+
         String browser = System.getProperty("browser", "chrome");
-        String login = System.getProperty("login", "user1");
-        String password = System.getProperty("password", "1234");
+//        String login = System.getProperty("login", "user1");
+//        String password = System.getProperty("password", "1234");
+        String login = config.login();
+        String password = config.password();
         String version = System.getProperty("version", "91");
         String url = System.getProperty("url", "selenoid.autotests.cloud");
         String size = System.getProperty("size", "1590x850");
@@ -27,7 +35,8 @@ public class FormTest {
         Configuration.browserSize = size;
         Configuration.browser = browser;
         Configuration.browserVersion = version;
-        Configuration.remote = "https://" + login + ":" + password + "@" + url + "/wd/hub";
+        //Configuration.remote = "https://" + login + ":" + password + "@" + url + "/wd/hub";
+        Configuration.remote = format("https://%s:%s@%s/wd/hub", login, password, url);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
